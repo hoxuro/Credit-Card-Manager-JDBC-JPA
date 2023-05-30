@@ -1,0 +1,145 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.1
+-- Dumped by pg_dump version 15.1
+
+-- Started on 2023-05-21 11:34:35
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 215 (class 1259 OID 50489)
+-- Name: movimientos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.movimientos (
+    cantidad_euros numeric NOT NULL,
+    concepto character varying(50) NOT NULL,
+    fecha character varying(30) NOT NULL,
+    tarjeta_asociada character varying NOT NULL
+);
+
+
+ALTER TABLE public.movimientos OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 50446)
+-- Name: tarjetas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tarjetas (
+    numero character varying NOT NULL,
+    nif character varying(12) NOT NULL,
+    titular character varying(80) NOT NULL,
+    pin character varying(32) NOT NULL,
+    limite numeric NOT NULL,
+    cvv character varying(3) NOT NULL,
+    year_caducidad character varying(12) NOT NULL,
+    month_caducidad character varying(12) NOT NULL
+);
+
+
+ALTER TABLE public.tarjetas OWNER TO postgres;
+
+--
+-- TOC entry 3324 (class 0 OID 50489)
+-- Dependencies: 215
+-- Data for Name: movimientos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.movimientos (cantidad_euros, concepto, fecha, tarjeta_asociada) FROM stdin;
+124.88	Gastos de educacion	2023-05-18 00:54:57	8201634950872314
+2379	Viaje de vacaciones	2023-05-18 00:56:57	8201634950872314
+333	Servicios profesionales	2023-05-18 00:58:57	8201634950872314
+33	Compras en linea	2023-05-18 00:00:57	3154789602876548
+3500	Pago de alquiler	2023-05-18 00:02:57	3154789602876548
+534.44	Reparacion de vehiculo	2023-05-18 00:04:57	3154789602876548
+321	Comida para llevar	2023-05-18 00:12:57	7625481975243568
+12	Gastos de transporte	2023-05-18 00:14:57	7625481975243568
+33	Servicios de limpieza	2023-05-18 00:16:57	7625481975243568
+3000	EJ Entretenimiento	2023-05-20 21:25:18.578+02	9054637189536209
+253.22	Festival de Cannes	2023-05-20 21:25:38.585+02	9054637189536209
+399.99	Gastos de entretenimiento en conciertos	2023-05-18 00:33:57	9285935219458323
+461	Compras de alimentos organicos	2023-05-18 00:35:57	9285935219458323
+461	Pago de seguros	2023-05-18 00:37:57	8742095436192054
+4312.33	Gastos de mascotas	2023-05-18 00:39:57	8742095436192054
+4433.33	Compras de regalos	2023-05-18 00:41:57	8742095436192054
+1803.33	Comidas de negocios	2023-05-18 00:42:57	9506832475198677
+533.33	Mantenimiento de jardin	2023-05-18 00:44:57	9506832475198677
+1500	Donaciones a organizaciones beneficas	2023-05-18 00:46:57	9506832475198677
+500	cosas de Hollywood	2023-05-20 21:25:56.429+02	9054637189536209
+35.22	Boligrafo bic	2023-05-20 21:28:16.419+02	1248759038562472
+900	alquiler	2023-05-20 21:28:24.569+02	1248759038562472
+4000	Compra de motores Raptor	2023-05-20 21:29:58.006+02	3769125487610491
+500	Dogecoin	2023-05-20 21:30:07.35+02	3769125487610491
+43.21	Mensaje encriptado via Twitter	2023-05-20 21:30:30.056+02	3769125487610491
+\.
+
+
+--
+-- TOC entry 3323 (class 0 OID 50446)
+-- Dependencies: 214
+-- Data for Name: tarjetas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tarjetas (numero, nif, titular, pin, limite, cvv, year_caducidad, month_caducidad) FROM stdin;
+7625481975243568	30160710M	Tom Hanks	68406	1111	663	2023	5
+8201634950872314	16946265A	Angelina Jolie	8265	2379	448	2023	5
+9285935219458323	17388418G	Brad Pitt	71895	3171	656	2023	5
+8742095436192054	62869167R	Emma Stone	6724	4488	280	2023	5
+3154789602876548	42579134Q	Jennifer Lawrence	216370	4854	954	2023	5
+9506832475198677	97801522W	Johnny Depp 	8243	2025	105	2023	5
+9054637189536209	07671279C	Leonardo DiCaprio	7829	4000	775	2028	05
+1248759038562472	34602515G	Alan Turing	7621	3800	728	2028	05
+3769125487610491	54382298V	Elon Reeve Musk	6996	5000	464	2028	05
+\.
+
+
+--
+-- TOC entry 3179 (class 2606 OID 50528)
+-- Name: movimientos pk_fecha; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimientos
+    ADD CONSTRAINT pk_fecha PRIMARY KEY (fecha);
+
+
+--
+-- TOC entry 3177 (class 2606 OID 50452)
+-- Name: tarjetas tarjetas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tarjetas
+    ADD CONSTRAINT tarjetas_pkey PRIMARY KEY (numero);
+
+
+--
+-- TOC entry 3180 (class 2606 OID 50513)
+-- Name: movimientos movimientos_tarjeta_asociada_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimientos
+    ADD CONSTRAINT movimientos_tarjeta_asociada_fkey FOREIGN KEY (tarjeta_asociada) REFERENCES public.tarjetas(numero) ON DELETE CASCADE;
+
+
+-- Completed on 2023-05-21 11:34:36
+
+--
+-- PostgreSQL database dump complete
+--
+
